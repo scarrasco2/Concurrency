@@ -38,8 +38,8 @@ void* producer(void *args) {
 
 		// Check to see if number of insertions has exceed expected
 		// insertions
-		if (items == total)
-			pthread_exit(EXIT_SUCCESS);
+		if (items <= total)
+			break;
 
 		// Insert X into the first available slot in the buffer
 		buffer[count] = 'X';
@@ -62,8 +62,8 @@ void* consumer(void *args) {
 
 		// Check to see if the consumers have consumed all
 		// insertions
-		if ((count == 0) && (total == items))
-			pthread_exit(EXIT_SUCCESS);
+		if (count == 0 && total == items)
+			exit(EXIT_SUCCESS);
 
 		// Remove X from the last used slot in the buffer
 		printf("c:<%d>, item: %c, at %d\n", threadID, buffer[count - 1],
