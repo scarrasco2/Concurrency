@@ -77,7 +77,7 @@ void insert(char item, int threadID) {
 
 	// Check to see if the producers have
 	// produced all items
-	if (total >= items) {
+	if (total == items) {
 		sem_post(&mutex);
 		pthread_exit(EXIT_SUCCESS);
 	}
@@ -110,7 +110,7 @@ void remove(int threadID) {
 
 	// Check to see if the consumers have
 	// consumed all the slots in the buffer
-	if (total >= items && count == 0)
+	if (total == items && count == 0)
 		exit(EXIT_SUCCESS);
 
 	// Once the buffer is empty
